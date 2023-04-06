@@ -1,49 +1,69 @@
-user-container {
-    width: 100%;
-    max-width: 1200px;
-    padding: 5 10px;
-    margin: 30px auto;
-  }
-  
-  .user-container header {
-    display: flex;
-    align-items: center;
-  }
-  
-  .user-container header img {
-    height: 50px;
-  }
-  
-  .user-container header button {
-    height: 50px;
-    width: 200px;
-    border-radius: 5px;
-    border: 1px solid whitesmoke;
-    background: rgb(64, 114, 221);
-    margin-left: 16px;
-    transition: border-color 0.5s;
-  }
-  
-  .user-container header button:hover {
-    background: orange;
-  }
-  
-  table, th, td {
-    border: 1px solid black;
-    margin: 10px 10px auto 10px;
-    padding: 20px;
-    text-align: left;
-  }
-  .btn-sort{
-    margin: 15px;
-  }
-  .btn-sort button{
-    margin: 5px;
-    padding: 5px;
-    font-size: 10pt;
-    font-weight: bold;
-    background: rgb(83, 135, 248);
-    border: none;
-    border-radius: 10px;
-    box-shadow:  2px 2px 5px black;
-  }
+.user-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.user-container header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-container header img {
+  height: 60px;
+}
+
+.user-container header button {
+  height: 50px;
+  width: 200px;
+  border-radius: 5px;
+  border: 1px solid whitesmoke;
+  background: rgb(64, 114, 221);
+  margin-left: 16px;
+  transition: border-color 0.5s;
+}
+
+.user-container header button:hover {
+  background: orange;
+}
+
+th,
+td {
+  margin: 10px 10px auto 10px;
+  padding: 20px;
+  text-align: left;
+  border-top: 1;
+}
+
+table {
+  border: 1px solid rgb(41, 41, 41);
+  text-align: center;
+  margin: auto;
+}
+
+.btn-sort {
+  text-align: center;
+  margin: 15px;
+}
+
+.btn-sort button {
+  margin: 5px;
+  padding: 5px;
+  font-size: 10pt;
+  font-weight: bold;
+  background: rgb(83, 135, 248);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px black;
+}
+
+.btn-sort :last-of-type {
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.btn-sort button:active {
+  opacity: 0.1;
+  transition: .2s;
+}
