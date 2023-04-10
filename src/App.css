@@ -1,6 +1,6 @@
 .user-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 95%;
   margin: 30px auto;
 }
 
@@ -28,18 +28,18 @@
   background: orange;
 }
 
-th,
-td {
+.table-bordered{
+  margin: auto;
+}
+
+th {
   margin: 10px 10px auto 10px;
-  padding: 20px;
+  padding: 5px 20px 10px 10px;
   text-align: left;
-  border-top: 1;
 }
 
 table {
   border: 1px solid rgb(41, 41, 41);
-  text-align: center;
-  margin: auto;
 }
 
 .btn-sort {
@@ -66,4 +66,21 @@ table {
 .btn-sort button:active {
   opacity: 0.1;
   transition: .2s;
+}
+
+.setores{
+  margin: 10px 10%;
+}
+.setores, ol{
+  list-style-type: none;
+}
+
+.setores ol{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+}
+.setores li{
+  margin-right: 10px;
+  object-fit: cover;
 }
