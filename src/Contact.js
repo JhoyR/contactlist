@@ -15,6 +15,7 @@ function Contact() {
     const [showContactData, setShowContactData] = useState(false);
     const [groupedData, setGroupedData] = useState({});
     const [showGroupedData, setShowGroupedData] = useState(false);
+    const [showElements, setShowElements] = useState(false);
 
     const getOrder = async () => {
         await axios.get(baseURL)
@@ -39,6 +40,23 @@ function Contact() {
         }, {});
         setGroupedData(grouped);
     }, [data]);
+
+    // function showList() {
+    //     var ver = document.querySelector('#ver');
+    //     // var dados = document.querySelector('.lista p')
+    //     ver.addEventListener('click', function () {
+    //         var conteudo = document.querySelector('.lista p');
+
+    //         if (conteudo.classList.contains('mostrar')) {
+    //             ver.innerHTML = 'Ver mais';
+    //             conteudo.classList.remove('.mostrar');
+    //         }
+    //         else {
+    //             ver.innerHTML = 'Ver menos';
+    //             conteudo.classList.add('mostrar');
+    //         }
+    //     });
+    // }
 
     const toggleGroupedData = () => {
         setShowGroupedData(!showGroupedData);
@@ -65,6 +83,13 @@ function Contact() {
         }
     }, [contacts, updateData]);
 
+    const toggleShowElement = (sector) => {
+        setShowElements(prevState => ({
+            ...prevState,
+            [sector]: !prevState[sector]
+        }));
+    };
+
     return (
         <div className="user-container">
             <br />
@@ -74,43 +99,28 @@ function Contact() {
             </header>
             <div className="btn-sort">
                 <button onClick={toggleContactData}>
-                    {showContactData ? 'Recolher' : 'Exibir contatos'}</button>
+                    {showContactData ? 'Recolher contatos' : 'Exibir contatos'}</button>
                 <button onClick={() => sortBy('name')}>Ordenar por Nome</button>
                 <button onClick={() => sortBy('sector')}>Ordenar por Setor</button>
                 <button onClick={toggleGroupedData}>
-                    {showGroupedData ? 'Recolher' : 'Agrupar por setor'}
+                    {showGroupedData ? 'Recolher grupos' : 'Agrupar por setor'}
                 </button>
                 <input type="search" id="busca" onChange={(e) => setSearch(search)} />
             </div>
-            {showGroupedData && (
+            {showGroupedData > 0 && (
                 <div className='SContacts'>
                     <br />
                     <h1>Contatos agrupados por setor</h1>
                     <br />
-                    <ul>
+                    <table className='lista'>
                         {Object.entries(groupedData).map(([sector, items]) => (
-                            <li key={sector} className='SList'>
-                                <h2>{sector}</h2>
-
-                                <th>
-                                    {items.map(item => (
-                                        <tr key={item.id}>
-                                            <th>{item.id}</th>
-                                            <th>{item.name}</th>
-                                            <th>{item.branch}</th>
-                                            <th>{item.tellPhone}</th>
-                                            <th>{item.cellPhone}</th>
-                                            <th>{item.email}</th>
-                                            <th>{item.sector}</th>
-                                        </tr>
-                                    ))}
-                                </th>
-                            </li>
+                            <Sector key={sector} sector={sector} items={items} showElement={showElements[sector]} toggleShowElement={() => toggleShowElement(sector)} />
                         ))}
-                    </ul>
+                    </table>
                 </div>
             )}
-            {showContactData && (
+
+            {showContactData > 0 && (
                 <div className='TContacts'>
                     <br />
                     <h1>Contatos</h1>
@@ -127,7 +137,6 @@ function Contact() {
                                 <th>Setor</th>
                             </tr>
                         </thead>
-
                         <tbody className='dados'>
                             {data.map(user => (
                                 <tr>
@@ -145,6 +154,34 @@ function Contact() {
                 </div>
             )}
         </div> //user-container
+    );
+}
+
+function Sector({ sector, items, showElement, toggleShowElement }) {
+    return (
+        <tbody className='SList'>
+            <tr className='setor'>
+                <td>{sector}</td>
+                <td><button id='ver' onClick={toggleShowElement}>
+                    {showElement ? 'Ver menos' : 'Ver mais'}
+                </button></td>
+            </tr>
+            {showElement && (
+                
+                <tr className='lista'>
+                    {items.map(item => (
+                        <td key={item.id}>
+                            <p>{item.id}</p>
+                            <p>{item.name}</p>
+                            <p>{item.branch}</p>
+                            <p>{item.tellPhone}</p>
+                            <p>{item.cellPhone}</p>
+                            <p>{item.email}</p>
+                        </td>
+                    ))}
+                </tr>
+            )}
+        </tbody>
     );
 }
 

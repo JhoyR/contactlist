@@ -1,10 +1,13 @@
-.user-container, .SContacts, .TContacts {
-  width: 100%;
-  max-width: 95%;
+.user-container,
+.SContacts,
+.TContacts {
+  width: 95%;
   margin: 30px auto;
 }
 
-.user-container header, .SContacts, .TContacts {
+.user-container header,
+.SContacts,
+.TContacts {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,26 +17,11 @@
   height: 60px;
 }
 
-.user-container header button {
-  height: 50px;
-  width: 200px;
-  border-radius: 5px;
-  border: 1px solid whitesmoke;
-  background: rgb(64, 114, 221);
-  margin-left: 16px;
-  transition: border-color 0.5s;
-}
-
-.user-container header button:hover {
-  background: orange;
-}
-
-.table-bordered{
+.table-bordered {
   margin: auto;
 }
 
 th {
-  margin: 10px 10px auto 10px;
   padding: 5px 20px 10px 10px;
   text-align: left;
 }
@@ -58,9 +46,11 @@ table {
   box-shadow: 2px 2px 5px black;
 }
 
-.btn-sort :last-of-type {
-  padding: 15px;
-  border-radius: 20px;
+#busca {
+  display: flex;
+  margin: 20px auto;
+  padding: 5px;
+  border-radius: 15px;
 }
 
 .btn-sort button:active {
@@ -68,6 +58,49 @@ table {
   transition: .2s;
 }
 
-.SContacts li{
-  list-style-type: none;
+.setor {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.setor td {
+  padding-left: 5px;
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+#ver {
+  font-size: 10pt;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: grey;
+  border-radius: 10px;
+  padding: 5px;
+  opacity: .7;
+}
+
+#ver:hover {
+  opacity: 1;
+}
+
+.lista td {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.lista p {
+  text-align: left;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.lista {
+  min-width: 60%;
+}
+.lista tr{
+  padding: 5px;
 }
