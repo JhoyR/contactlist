@@ -10,7 +10,8 @@ function Contact() {
     const [updateData, setUpdateData] = useState(true);
     const [data, setData] = useState([]);
     const [contacts] = useState(data);
-    const [search, setSearch] = useState({});
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
     const [contactData, setContactData] = useState({});
     const [showContactData, setShowContactData] = useState(false);
     const [groupedData, setGroupedData] = useState({});
@@ -31,6 +32,30 @@ function Contact() {
         setData(sortedData);
     }
 
+    const toggleGroupedData = () => {
+        setShowGroupedData(!showGroupedData);
+    }
+
+    const toggleContactData = () => {
+        setShowContactData(!showContactData);
+    }
+
+    const toggleShowElement = (sector) => {
+        setShowElements(prevState => ({
+            ...prevState,
+            [sector]: !prevState[sector]
+        }));
+    };
+
+    const handleSearch = (event) => {
+        const term = event.target.value;
+        setSearchTerm(term);
+        const results = data.filter((user) =>
+            user.name.toLowerCase().includes(term.toLowerCase())
+        );
+        setSearchResults(results);
+    };
+
     useEffect(() => {
         const grouped = data.reduce((result, item) => {
             const { sector, ...rest } = item;
@@ -41,26 +66,6 @@ function Contact() {
         setGroupedData(grouped);
     }, [data]);
 
-    // function showList() {
-    //     var ver = document.querySelector('#ver');
-    //     // var dados = document.querySelector('.lista p')
-    //     ver.addEventListener('click', function () {
-    //         var conteudo = document.querySelector('.lista p');
-
-    //         if (conteudo.classList.contains('mostrar')) {
-    //             ver.innerHTML = 'Ver mais';
-    //             conteudo.classList.remove('.mostrar');
-    //         }
-    //         else {
-    //             ver.innerHTML = 'Ver menos';
-    //             conteudo.classList.add('mostrar');
-    //         }
-    //     });
-    // }
-
-    const toggleGroupedData = () => {
-        setShowGroupedData(!showGroupedData);
-    }
 
     useEffect(() => {
         const contact = data.reduce((result, item) => {
@@ -72,23 +77,12 @@ function Contact() {
         setContactData(contact);
     }, [data]);
 
-    const toggleContactData = () => {
-        setShowContactData(!showContactData);
-    }
-
     useEffect(() => {
         if (updateData) {
             getOrder();
             setUpdateData(false);
         }
     }, [contacts, updateData]);
-
-    const toggleShowElement = (sector) => {
-        setShowElements(prevState => ({
-            ...prevState,
-            [sector]: !prevState[sector]
-        }));
-    };
 
     return (
         <div className="user-container">
@@ -105,7 +99,7 @@ function Contact() {
                 <button onClick={toggleGroupedData}>
                     {showGroupedData ? 'Recolher grupos' : 'Agrupar por setor'}
                 </button>
-                <input type="search" id="busca" onChange={(e) => setSearch(search)} />
+
             </div>
             {showGroupedData > 0 && (
                 <div className='SContacts'>
@@ -122,6 +116,7 @@ function Contact() {
 
             {showContactData > 0 && (
                 <div className='TContacts'>
+                    <input type="search" id="busca" value={searchTerm} onChange={handleSearch} placeholder='Pesquise o nome do usuário' />
                     <br />
                     <h1>Contatos</h1>
                     <br />
@@ -138,15 +133,15 @@ function Contact() {
                             </tr>
                         </thead>
                         <tbody className='dados'>
-                            {data.map(user => (
-                                <tr>
-                                    <th>{user.id}</th>
-                                    <th>{user.name}</th>
-                                    <th>{user.branch}</th>
-                                    <th>{user.tellPhone}</th>
-                                    <th>{user.cellPhone}</th>
-                                    <th>{user.email}</th>
-                                    <th>{user.sector}</th>
+                        {searchResults.map((user) => (
+                                <tr key={user.id}>
+                                    <td>{user.id}</td>
+                                    <td>{user.name}</td>
+                                    <td>{user.branch}</td>
+                                    <td>{user.tellPhone}</td>
+                                    <td>{user.cellPhone}</td>
+                                    <td>{user.email}</td>
+                                    <td>{user.sector}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -167,7 +162,6 @@ function Sector({ sector, items, showElement, toggleShowElement }) {
                 </button></td>
             </tr>
             {showElement && (
-                
                 <tr className='lista'>
                     {items.map(item => (
                         <td key={item.id}>
@@ -181,7 +175,7 @@ function Sector({ sector, items, showElement, toggleShowElement }) {
                     ))}
                 </tr>
             )}
-        </tbody>
+        </tbody> //user-sector-container
     );
 }
 
