@@ -12,7 +12,7 @@ function Contact() {
     const [contacts] = useState(data);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [contactData, setContactData] = useState({});
+    const [setContactData] = useState({});
     const [showContactData, setShowContactData] = useState(false);
     const [groupedData, setGroupedData] = useState({});
     const [showGroupedData, setShowGroupedData] = useState(false);
@@ -75,7 +75,7 @@ function Contact() {
             return result;
         }, {});
         setContactData(contact);
-    }, [data]);
+    }, [data, setContactData]);
 
     useEffect(() => {
         if (updateData) {
